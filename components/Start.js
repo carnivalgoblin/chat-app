@@ -1,6 +1,6 @@
 import React from "react";
 
-import { StyleSheet, View, Text, TextInput, Pressable, ImageBackground, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Text, TextInput, Pressable, ImageBackground, TouchableOpacity, Platform, KeyboardAvoidingView } from "react-native";
 
 import BackgroundImage from "../img/background-image.png";
 
@@ -29,12 +29,14 @@ export default class Start extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+
         <ImageBackground
           source={BackgroundImage}
           resizeMode="cover"
           style={styles.backgroundImage}
         >
 
+          {/* Title box */}
           <View style={styles.titleBox}>
             <Text style={styles.title}>ProChat</Text>
           </View>
@@ -50,6 +52,7 @@ export default class Start extends React.Component {
               />
             </View>
 
+            {/* Color Selector title box */}
             <View style={styles.colorBox}>
               <Text style={styles.chooseColor}>
                 {" "}
@@ -57,6 +60,7 @@ export default class Start extends React.Component {
               </Text>
             </View>
 
+            {/* Color picker */}
             <View style={styles.colorArray}>
               <TouchableOpacity
                 accessible={true}
@@ -76,6 +80,8 @@ export default class Start extends React.Component {
                 onPress={() => this.changeBgColor(this.colors.yellow)}
               ></TouchableOpacity>
             </View>
+
+            {/* Button to call chat screen */}
             <Pressable
               style={styles.button}
               onPress={() =>
@@ -90,6 +96,7 @@ export default class Start extends React.Component {
           </View>
 
         </ImageBackground>
+        {Platform.OS === 'android' ? <KeyboardAvoidingView behavior="padding" /> : null}
       </View>
     )
   }
@@ -98,6 +105,7 @@ export default class Start extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+
   },
   backgroundImage: {
     flex: 1,
@@ -106,10 +114,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   titleBox: {
-    height: "50%",
+    height: "20%",
     width: "88%",
     alignItems: "center",
-    paddingTop: 100,
+    paddingTop: 10,
   },
   title: {
     fontSize: 45,
@@ -118,7 +126,7 @@ const styles = StyleSheet.create({
   },
   box1: {
     backgroundColor: "white",
-    height: "46%",
+    height: 320,
     width: "88%",
     justifyContent: "space-around",
     alignItems: "center",
@@ -160,6 +168,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     width: "80%",
   },
+  /* Colors for color picker start */
   color1: {
     backgroundColor: "#355764",
     width: 50,
@@ -183,6 +192,7 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 25,
+    /* Colors for color picker end */
   },
   button: {
     width: "88%",
