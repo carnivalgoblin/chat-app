@@ -5,7 +5,9 @@ import { StyleSheet, View, Text, TextInput, Pressable, ImageBackground, Touchabl
 import BackgroundImage from "../img/background-image.png";
 
 export default class Start extends React.Component {
+  // The applicatinos main start screen. User can enter name and choose backgroundcolor for the chat screen here. Button to start chat screen is displayed
 
+  // Initialize states for name and background color for passing value to subsequent components
   constructor(props) {
     super(props);
     this.state = {
