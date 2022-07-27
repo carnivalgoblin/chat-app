@@ -21,6 +21,7 @@ export default class Chat extends React.Component {
     let name = this.props.route.params.name;
     this.props.navigation.setOptions({ title: name })
 
+    // Set default message for testing purposes
     this.setState({
       messages: [
         {
