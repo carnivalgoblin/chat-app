@@ -42,6 +42,9 @@ export default class Chat extends React.Component {
     let name = this.props.route.params.name;
     this.props.navigation.setOptions({ title: name })
 
+    // Reference to load messages via Firebase
+    this.referenceMessages = firebase.firestore().collection("messages");
+
     // listen to authentication events
     this.authUnsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
       if (!user) {
@@ -51,11 +54,14 @@ export default class Chat extends React.Component {
       this.setState({
         user: {
           _id: user.uid,
+          name: name
         }
       });
 
       // listen for changes in collection
-      this.unsubscribe = this.referenceMessages.onSnapshot(this.onCollectionUpdate);
+      this.unsubscribe = this.referenceMessages
+        .orderBy('createdAt', 'desc')
+        .onSnapshot(this.onCollectionUpdate);
     });
 
 
@@ -90,16 +96,13 @@ export default class Chat extends React.Component {
   }
 
   // add message
-  addMessage = (message) => {
+  addMessage() {
+    const message = this.state.messages[0];
     this.referenceMessages.add({
-      _id: "TestID",
+      _id: message._id,
       createdAt: message.createdAt,
-      text: "Test text",
-      user: {
-        _id: this.state.user._id,
-        avatar: "https://placeimg.com/140/140/any",
-        name: "React Native",
-      }
+      text: message.text,
+      user: message.user
     });
   }
 
@@ -132,8 +135,11 @@ export default class Chat extends React.Component {
       <Bubble
         {...props}
         wrapperStyle={{
+          left: {
+            backgroundColor: '#fff',
+          },
           right: {
-            backgroundColor: '#000'
+            backgroundColor: '#59CE8F'
           }
         }}
       />
@@ -144,8 +150,9 @@ export default class Chat extends React.Component {
   onSend(messages = []) {
     this.setState(previousState => ({
       messages: GiftedChat.append(previousState.messages, messages),
-    })),
-      this.addMessage(this.state.messages[0]);
+    }), () => {
+      this.addMessage();
+    });
   }
 
   render() {
@@ -161,7 +168,8 @@ export default class Chat extends React.Component {
           messages={this.state.messages}
           onSend={messages => this.onSend(messages)}
           user={{
-            _id: 1,
+            _id: this.state.user._id,
+            name: this.state.user.name,
           }}
         />
         {/* Fix for Android keyboard hiding message input */}
