@@ -4,7 +4,7 @@ import { StyleSheet, View, Text, KeyboardAvoidingView, Platform } from "react-na
 import PropTypes from 'prop-types';
 
 // import asyncStorage
-import AsyncStorage from "@react-native-async-storage/async-storage";
+//import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // import Gifted Chat Library
 import { GiftedChat, Bubble } from 'react-native-gifted-chat';
