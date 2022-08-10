@@ -3,6 +3,9 @@ import React from "react";
 import { StyleSheet, View, Text, KeyboardAvoidingView, Platform } from "react-native";
 import PropTypes from 'prop-types';
 
+// import asyncStorage
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 // import Gifted Chat Library
 import { GiftedChat, Bubble } from 'react-native-gifted-chat';
 
@@ -63,30 +66,6 @@ export default class Chat extends React.Component {
         .orderBy('createdAt', 'desc')
         .onSnapshot(this.onCollectionUpdate);
     });
-
-
-
-    // Set default message for testing purposes
-    this.setState({
-      messages: [
-        {
-          _id: 1,
-          text: 'Hello developer',
-          createdAt: new Date(),
-          user: {
-            _id: 2,
-            name: 'React Native',
-            avatar: 'https://placeimg.com/140/140/any',
-          },
-        },
-        {
-          _id: 2,
-          text: this.props.route.params.name + ' has entered the chat',
-          createdAt: new Date(),
-          system: true,
-        },
-      ],
-    })
   };
 
   //stop listeners
