@@ -52,7 +52,7 @@ This app is built using React Native, in order to have an app that can be used o
 Usage of the React Native framework alos help to increase performance in comparison to hybrid apps.
 For navigation purposes this ap uses a thrid party library, **React Navigation**.
 
-For testing and debugging I use Expo and Android Studio for emulation.
+For building, testing and debugging I use Expo and Android Studio for emulation.
 
 ## Installation
 
@@ -69,7 +69,7 @@ For testing and debugging I use Expo and Android Studio for emulation.
 ```
 - Download this repo
 - Navigate to root folder via CLI
-- Install required packages in package.json
+- Install required packages in package.json via "npm i"
 ```
 
 ### Run the App
