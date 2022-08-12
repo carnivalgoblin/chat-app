@@ -107,7 +107,6 @@ export default class Start extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-
   },
   backgroundImage: {
     flex: 1,
@@ -128,7 +127,7 @@ const styles = StyleSheet.create({
   },
   box1: {
     backgroundColor: "white",
-    height: 320,
+    minHeight: 320,
     width: "88%",
     justifyContent: "space-around",
     alignItems: "center",
