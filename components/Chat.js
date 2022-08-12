@@ -12,6 +12,12 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 // import Gifted Chat Library
 import { GiftedChat, Bubble, InputToolbar } from 'react-native-gifted-chat';
 
+// import Custom Actions
+import CustomActions from './CustomActions';
+
+// import Map view
+import MapView from 'react-native-maps';
+
 const firebase = require('firebase');
 require('firebase/firestore');
 
@@ -34,8 +40,12 @@ export default class Chat extends React.Component {
       user: {
         _id: '',
         name: '',
-        avatar: ''
+        avatar: '',
+        image: null,
+        location: null
       },
+      image: null,
+      location: null,
       isConnected: null
     }
 
@@ -154,8 +164,10 @@ export default class Chat extends React.Component {
     this.referenceMessages.add({
       _id: message._id,
       createdAt: message.createdAt,
-      text: message.text,
-      user: message.user
+      text: message.text || '',
+      user: message.user,
+      image: message.image || null,
+      location: message.location || null,
     });
   }
 
@@ -173,8 +185,9 @@ export default class Chat extends React.Component {
           _id: data.user._id,
           avatar: data.user.avatar,
           name: data.user.name,
-
-        }
+        },
+        image: data.image || null,
+        location: data.location || null,
       });
     });
     this.setState({
@@ -210,6 +223,30 @@ export default class Chat extends React.Component {
     }
   }
 
+  // Add custom actions to input bar
+  renderCustomActions = (props) => {
+    return <CustomActions {...props} />
+  }
+
+  // Map View
+  renderCustomView(props) {
+    const { currentMessage } = props;
+    if (currentMessage.location) {
+      return (
+        <MapView
+          style={{ width: 150, height: 100, borderRadius: 13, margin: 3 }}
+          region={{
+            latitude: currentMessage.location.latitude,
+            longitude: currentMessage.location.longitude,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
+        />
+      );
+    }
+    return null;
+  }
+
   // Function to specify behavior when tapping send
   onSend(messages = []) {
     this.setState(previousState => ({
@@ -231,6 +268,8 @@ export default class Chat extends React.Component {
         <GiftedChat
           renderBubble={this.renderBubble.bind(this)}
           renderInputToolbar={this.renderInputToolbar.bind(this)}
+          renderActions={this.renderCustomActions.bind(this)}
+          renderCustomView={this.renderCustomView}
           messages={this.state.messages}
           onSend={messages => this.onSend(messages)}
           user={{
