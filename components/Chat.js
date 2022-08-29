@@ -180,7 +180,7 @@ export default class Chat extends React.Component {
       messages.push({
         _id: data._id,
         createdAt: data.createdAt.toDate(),
-        text: data.text.toString(),
+        text: data.text || '',
         user: {
           _id: data.user._id,
           avatar: data.user.avatar,
