@@ -264,7 +264,7 @@ export default class Chat extends React.Component {
 
     return (
       // Backgroundcolor from variable, other styling from stylesheet
-      <View style={[{ backgroundColor: color }, styles.container]}>
+      <View style={{ flex: 1, backgroundColor: color }}>
         <GiftedChat
           renderBubble={this.renderBubble.bind(this)}
           renderInputToolbar={this.renderInputToolbar.bind(this)}
@@ -283,16 +283,6 @@ export default class Chat extends React.Component {
     );
   };
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  },
-
-  text: {
-    color: '#ffffff'
-  },
-});
 
 Chat.propTypes = {
   route: PropTypes.shape({
