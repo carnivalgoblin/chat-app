@@ -68,11 +68,11 @@ class CustomAction extends React.Component {
   // pick image from library
   pickImage = async () => {
     // Get permission from user
-    const { status } = await ImagePicker.getMediaLibraryPermissionsAsync();
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
     try {
       if (status === 'granted') {
         let result = await ImagePicker.launchImageLibraryAsync({
-          mediaTypes: ImagePicker.MediaTypeOptions.Images,
+          mediaTypes: ImagePicker.MediaTypeOptions.Images
         }).catch((error) => {
           console.log(error);
           Alert(error.message || 'An error has occurred!');
