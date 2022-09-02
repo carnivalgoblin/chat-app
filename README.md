@@ -7,6 +7,8 @@ provide users with a chat interface and options to share images and their
 location.
 Users can choose background color for their chat sessions as well as a username.
 
+![chat app](img/chatapp.png)
+
 ## Getting Started
 
 Simplest way to get this started is to clone the repo:
